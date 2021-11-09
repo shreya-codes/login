@@ -1,6 +1,9 @@
 const express = require('express'); //require is a built-in function to include external modules that exist in seperate files
 const expressLayouts= require('express-ejs-layouts');
 const mongoose=require('mongoose');
+const flash=require('connect-flash');
+const session=require('express-sessions');
+
 
 const app=express(); //creates a new express application
 
