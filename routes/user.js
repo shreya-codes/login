@@ -106,5 +106,11 @@ router.get('/login',(req,res)=> res.render('Login'));
      })(req,res,next);
 
  })
+ //logout handle
+ router.get('/logout',(req,res)=>{
+     req.logout();
+     req.flash('success_msg','You are loggedout');
+     res.redirect('/users/login');
+ })
 
 module.exports=router; //Module exports are the instruction that tells Node. js which bits of code (functions, objects, strings, etc.) to “export” from a given file so other files are allowed to access the exported code
