@@ -1,9 +1,9 @@
 const LocalStrategy = require('passport-local').Strategy;
-const mongoose = require('moongoose');
+// const mongoose = require('moongoose'); //sapana
 const bcrypt = require('bcryptjs');
 
 // Load User Model
-const User = require('../models/User');
+const User = require('../models/User'); //sapana
 
 module.exports = function (passport){ // passing the passport from app.js file
     passport.use(
@@ -30,4 +30,15 @@ module.exports = function (passport){ // passing the passport from app.js file
 
         })
     )
+
+    passport.serializeUser((user, done)=> {
+        done(null, user.id);
+      });
+      
+      passport.deserializeUser((id, done)=> {
+        User.findById(id, (err, user)=> {
+          done(err, user);
+        });
+      });
+
 }

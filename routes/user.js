@@ -1,6 +1,7 @@
 const express=require('express');
 const router= express.Router();// creates a new router object to handle requests
 const bcrypt=require('bcryptjs');
+const passport=require('passport');
 //User model
 const User = require('../models/User'); // now we can use methods on user
 
@@ -94,6 +95,15 @@ router.get('/login',(req,res)=> res.render('Login'));
 
     }
     
+
+ });
+ //Login handle
+ router.post('/login',(req,res,next)=>{
+     passport.authenticate('local',{
+         successRedirect:'/dashboard',
+         failureRedirect:'/users/login',
+         failureFlash:true
+     })(req,res,next);
 
  })
 

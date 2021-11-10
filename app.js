@@ -3,10 +3,11 @@ const expressLayouts= require('express-ejs-layouts');
 const mongoose=require('mongoose');
 const flash=require('connect-flash');
 const session=require('express-session');
-
+const passport = require('passport');
 
 const app=express(); //creates a new express application
-
+//passport config
+require('./config/passport')(passport);
 //DB config
 const db = require('./config/keys').MongoURI;
 
@@ -29,13 +30,17 @@ app.use(
     saveUninitialized: true
   })
   );
+  //passport middleware
+  app.use(passport.initialize());
+app.use(passport.session());
   //Connect flash
   app.use(flash());
   //global vars
   app.use(function(req,res,next){ //ADDING OUR OWN MIDDLEWARE 
       res.locals.success_msg = req.flash('success_msg');     ///setting global variables.. herre the variable is sucess_msg
       res.locals.error_msg = req.flash('error_msg'); 
-      next()
+      res.locals.error = req.flash('error'); 
+      next();
   })
 //Routes
 app.use('/',require('./routes/index'))
