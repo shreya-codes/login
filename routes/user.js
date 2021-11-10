@@ -44,6 +44,16 @@ router.get('/login',(req,res)=> res.render('Login'));
              
         })
 
+
+
+
+
+
+
+
+
+
+
     }
     else{
         // res.send('pass');
@@ -80,7 +90,7 @@ router.get('/login',(req,res)=> res.render('Login'));
                      newUser.save()
                      .then(user=>{
                          req.flash('success_msg', 'You are nw registered !')
-                        //  res.redirect('/users/login');
+                        res.redirect('/users/login');
                      })
                      .catch(err => console.log(err));
                 }))
